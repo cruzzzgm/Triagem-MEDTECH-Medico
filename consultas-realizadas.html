@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas Realizadas - MEDTECH</title>
+    <link rel="stylesheet" href="./src/index.css">
+    <link rel="stylesheet" href="./src/consultas-realizadas.css">
+    
+</head>
+
+<body>
+    <header>
+        <a href="./index.html" id="logo">
+            <span>TRIAGEM</span><br>HOSPITALAR
+        </a>
+        <nav id="cabecalho">
+            <a href="#">Olá, Dr. Gabriel Medeiros</a> 
+            <a href="./usuario.html">
+                <img src="./src/img/icons8-usuário-homem-com-círculo-96.png" width="55px" alt="">
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="caixa-fundo" class="modal-conteudo">
+            <h2>Consultas Realizadas</h2>
+            <table id="tabela-consultas">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Hospital</th>
+                        <th>Especialidade</th>
+                        <th>Paciente</th>
+                        <th>Horário</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>15/05/2025</td>
+                        <td>Hospital São Lucas</td>
+                        <td>Clínica Geral</td>
+                        <td>Marcos</td>
+                        <td>10:00</td>
+                        <td>Concluída</td>
+                        <td><button class="ver-mais" onclick="mostrarModal('15/05/2025', 'Hospital São Lucas', 'Clínica Geral', 'Dr. Marcos', '10:00', 'Febre, dor de cabeça', 'Dengue', 'Dipirona', 'Sim', 'Sim')">Ver Mais</button></td>
+                    </tr>
+                    <tr>
+                        <td>10/05/2025</td>
+                        <td>Santa Casa</td>
+                        <td>Pediatria</td>
+                        <td>Helena</td>
+                        <td>08:30</td>
+                        <td>Concluída</td>
+                        <td><button class="ver-mais" onclick="mostrarModal('10/05/2025', 'Santa Casa', 'Pediatria', 'Dra. Helena', '08:30', 'Tosse seca, febre', 'Gripe', 'Paracetamol', 'Não', 'Sim')">Ver Mais</button></td>
+                    </tr>
+                    <tr>
+                        <td>02/05/2025</td>
+                        <td>Clínica Boa Vida</td>
+                        <td>Ortopedia</td>
+                        <td>Vinícius</td>
+                        <td>13:00</td>
+                        <td>Concluída</td>
+                        <td><button class="ver-mais" onclick="mostrarModal('02/05/2025', 'Clínica Boa Vida', 'Ortopedia', 'Dr. Vinícius', '13:00', 'Dor no joelho', 'Entorse', 'Ibuprofeno', 'Sim', 'Sim')">Ver Mais</button></td>
+                    </tr>
+                    <tr>
+                        <td>28/04/2025</td>
+                        <td>Hospital São Lucas</td>
+                        <td>Dermatologia</td>
+                        <td>Laura</td>
+                        <td>17:30</td>
+                        <td>Concluída</td>
+                        <td><button class="ver-mais" onclick="mostrarModal('28/04/2025', 'Hospital São Lucas', 'Dermatologia', 'Dra. Laura', '15:30', 'Manchas na pele', 'Dermatite', 'Pomada corticóide', 'Não', 'Sim')">Ver Mais</button></td>
+                    </tr>
+                    <tr>
+                        <td>28/04/2025</td>
+                        <td>UBS Jardim Peri</td>
+                        <td>Dermatologia</td>
+                        <td>Erika</td>
+                        <td>16:30</td>
+                        <td>Concluída</td>
+                        <td><button class="ver-mais" onclick="mostrarModal('28/04/2025', 'Hospital São Lucas', 'Dermatologia', 'Dra. Laura', '15:30', 'Manchas na pele', 'Dermatite', 'Pomada corticóide', 'Não', 'Sim')">Ver Mais</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('modal').style.display='none'">&times;</span>
+            <h3>Detalhes da Consulta</h3>
+            <p><strong>Data:</strong> <span id="det-data"></span></p>
+            <p><strong>Hospital:</strong> <span id="det-hospital"></span></p>
+            <p><strong>Especialidade:</strong> <span id="det-especialidade"></span></p>
+            <p><strong>Médico:</strong> <span id="det-medico"></span></p>
+            <p><strong>Horário:</strong> <span id="det-horario"></span></p>
+            <p><strong>Sintomas:</strong> <span id="det-sintomas"></span></p>
+            <p><strong>Doença:</strong> <span id="det-doenca"></span></p>
+            <p><strong>Medicação:</strong> <span id="det-remedios"></span></p>
+            <p><strong>Retorno Agendado:</strong> <span id="det-retorno"></span></p>
+            <p><strong>Alta:</strong> <span id="det-alta"></span></p>
+        </div>
+    </div>
+
+     <footer>
+        <p id="copy">
+            © 2025 MEDTECH. Todos os direitos reservados.  <br>
+
+         
+        </p>
+    </footer>
+
+    <script>
+        function mostrarModal(data, hospital, especialidade, medico, horario, sintomas, doenca, remedios, retorno, alta) {
+            document.getElementById('det-data').innerText = data;
+            document.getElementById('det-hospital').innerText = hospital;
+            document.getElementById('det-especialidade').innerText = especialidade;
+            document.getElementById('det-medico').innerText = medico;
+            document.getElementById('det-horario').innerText = horario;
+            document.getElementById('det-sintomas').innerText = sintomas;
+            document.getElementById('det-doenca').innerText = doenca;
+            document.getElementById('det-remedios').innerText = remedios;
+            document.getElementById('det-retorno').innerText = retorno;
+            document.getElementById('det-alta').innerText = alta;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

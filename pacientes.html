@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meus Pacientes</title>
+  <link rel="stylesheet" href="./src/style.css" />
+  <link rel="stylesheet" href="./src/pacientes.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .paciente-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .paciente-card:hover {
+      transform: scale(1.01);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./index.html" id="logo">
+      <span>TRIAGEM</span>
+      <br />HOSPITALAR
+    </a>
+    <nav id="cabecalho">
+      <a href="#">Olá, Dr. Gabriel Medeiros</a>
+      <a href="./usuario.html">
+        <img src="./src/img/icons8-usuário-homem-com-círculo-96.png" width="55px" />
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="caixa-fundo" class="modal-conteudo">
+      <h2 id="pacientes">Pacientes</h2>
+      <input id="searchInput" type="text" placeholder="Buscar por CPF ou nome..." style="width: 100%; padding: 10px; margin-bottom: 20px;">
+      <div id="pacienteList"></div>
+    </section>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="fecharModal()">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+   <footer>
+        <p id="copy">
+            © 2025 MEDTECH. Todos os direitos reservados.  <br>
+
+         
+        </p>
+    </footer>
+
+  <script>
+    const pacientes = [
+      { nome: "Ana Souza", cpf: "123.456.789-00", consulta: "12/06/2025 - Clínica Geral", unidade: "Hospital Central", hora: "14:30", sintomas: "Febre e dor de cabeça", doenca: "Virose", remedios: "Dipirona, Dramin", retorno: "Sim", alta: "Não" },
+      { nome: "Bruno Lima", cpf: "987.654.321-00", consulta: "10/05/2025 - Ortopedia", unidade: "Hospital Zona Norte", hora: "09:00", sintomas: "Dor no joelho", doenca: "Entorse", remedios: "Ibuprofeno", retorno: "Não", alta: "Sim" },
+      { nome: "Carla Mendes", cpf: "111.222.333-44", consulta: "18/06/2025 - Cardiologia", unidade: "Hospital Sul", hora: "11:15", sintomas: "Palpitações", doenca: "Arritmia", remedios: "Atenolol", retorno: "Sim", alta: "Não" },
+      { nome: "Daniel Costa", cpf: "555.666.777-88", consulta: "20/05/2025 - Dermatologia", unidade: "Clínica Nova", hora: "15:00", sintomas: "Manchas na pele", doenca: "Alergia", remedios: "Antialérgico", retorno: "Sim", alta: "Não" },
+      { nome: "Elaine Rocha", cpf: "999.888.777-66", consulta: "25/05/2025 - Ginecologia", unidade: "Hospital Mulher", hora: "10:00", sintomas: "Cólica intensa", doenca: "Endometriose", remedios: "Antiinflamatórios", retorno: "Sim", alta: "Não" }
+    ];
+
+    const pacienteList = document.getElementById("pacienteList");
+    const searchInput = document.getElementById("searchInput");
+    const modal = document.getElementById("modal");
+    const modalBody = document.getElementById("modalBody");
+
+    function renderPacientes(lista) {
+      pacienteList.innerHTML = "";
+      lista.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "paciente-card";
+        div.innerHTML = `<strong>Nome:</strong> ${p.nome}<br><strong>CPF:</strong> ${p.cpf}<br><strong>Consultas:</strong> ${p.consulta}`;
+        div.onclick = () => abrirModal(p);
+        pacienteList.appendChild(div);
+      });
+    }
+
+    function abrirModal(p) {
+      modal.style.display = "flex";
+      modalBody.innerHTML = `
+        <h3>${p.nome}</h3>
+        <p><strong>CPF:</strong> ${p.cpf}</p>
+        <p><strong>Data:</strong> ${p.consulta.split(' - ')[0]}</p>
+        <p><strong>Hora:</strong> ${p.hora}</p>
+        <p><strong>Especialidade:</strong> ${p.consulta.split(' - ')[1]}</p>
+        <p><strong>Unidade:</strong> ${p.unidade}</p>
+        <p><strong>Sintomas:</strong> ${p.sintomas}</p>
+        <p><strong>Diagnóstico:</strong> ${p.doenca}</p>
+        <p><strong>Medicação:</strong> ${p.remedios}</p>
+        <p><strong>Retorno:</strong> ${p.retorno}</p>
+        <p><strong>Alta:</strong> ${p.alta}</p>
+        <canvas id="grafico" height="150"></canvas>
+      `;
+
+      new Chart(document.getElementById("grafico"), {
+        type: 'line',
+        data: {
+          labels: ["Dia 1", "Dia 2", "Dia 3", "Dia 4"],
+          datasets: [{
+            label: "Temperatura (°C)",
+            data: [36.5, 37.2, 38.1, 37.0],
+            fill: false,
+            borderColor: "#3eb1d4",
+            tension: 0.1
+          }]
+        }
+      });
+    }
+
+    function fecharModal() {
+      modal.style.display = "none";
+    }
+
+    searchInput.addEventListener("input", () => {
+      const termo = searchInput.value.toLowerCase();
+      const filtrados = pacientes.filter(p =>
+        p.nome.toLowerCase().includes(termo) ||
+        p.cpf.includes(termo)
+      );
+      renderPacientes(filtrados);
+    });
+
+    renderPacientes(pacientes);
+  </script>
+</body>
+</html>

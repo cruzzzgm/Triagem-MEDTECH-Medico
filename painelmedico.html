@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Médico</title>
+  <link rel="stylesheet" href="./src/index.css">
+</head>
+<body>
+  <header>
+    <div id="logo">Painel <span>Médico</span></div>
+    <nav>
+      <a href="#pacientes">Pacientes</a>
+      <a href="#consultas">Consultas</a>
+      <a href="#dados-medico">Seus Dados</a>
+    </nav>
+  </header>
+
+  <section id="caixa-fundo">
+    <h2 id="pacientes">Pacientes</h2>
+    <input type="text" placeholder="Buscar por CPF ou nome..." style="width: 100%; padding: 10px; margin-bottom: 20px;">
+    <ul style="text-align: left;">
+      <li><strong>Nome:</strong> Ana Souza<br><strong>CPF:</strong> 123.456.789-00<br><strong>Consultas:</strong> 12/06/2025 - Clínica Geral</li><br>
+      <li><strong>Nome:</strong> Bruno Lima<br><strong>CPF:</strong> 987.654.321-00<br><strong>Consultas:</strong> 10/05/2025 - Ortopedia</li>
+    </ul>
+  </section>
+
+  <section id="caixa-fundo">
+    <h2 id="consultas">Consultas</h2>
+    <div style="text-align: left;">
+      <p><strong>Paciente:</strong> Ana Souza</p>
+      <p><strong>Data:</strong> 12/06/2025</p>
+      <p><strong>Horário:</strong> 10:00</p>
+      <p><strong>Especialidade:</strong> Clínica Geral</p>
+      <hr>
+      <p><strong>Paciente:</strong> Bruno Lima</p>
+      <p><strong>Data:</strong> 10/05/2025</p>
+      <p><strong>Horário:</strong> 15:30</p>
+      <p><strong>Especialidade:</strong> Ortopedia</p>
+    </div>
+  </section>
+
+  <section id="caixa-fundo">
+    <h2 id="dados-medico">Seus Dados</h2>
+    <div style="text-align: left;">
+      <p><strong>CRM:</strong> 123456-SP</p>
+      <p><strong>Nome:</strong> Dr. João Batista</p>
+      <p><strong>Data de Nascimento:</strong> 20/03/1980</p>
+      <p><strong>CPF:</strong> 321.654.987-00</p>
+      <p><strong>Unidade:</strong> Clínica Centro Saúde</p>
+      <p><strong>Gênero:</strong> Masculino</p>
+    </div>
+  </section>
+
+  <footer>© 2025 MedTech</footer>
+</body>
+</html>
